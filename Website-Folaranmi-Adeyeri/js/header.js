@@ -128,13 +128,34 @@ class Header extends HTMLElement {
       </nav>
     `;
 
-    const hamburger = this.querySelector("#hamburger");
-    const navTabs = this.querySelector("#navTabs");
+      const hamburger = this.querySelector("#hamburger");
+      const navTabs = this.querySelector("#navTabs");
 
-    hamburger.addEventListener("click", () => {
-      navTabs.classList.toggle("show");
-      hamburger.classList.toggle("active");
-    });
+      const toggleMenu = () => {
+        const isOpen = navTabs.classList.toggle("show");
+        hamburger.classList.toggle("active");
+
+        // Disable or enable scrolling
+        document.body.style.overflow = isOpen ? "hidden" : "";
+      };
+
+      hamburger.addEventListener("click", (e) => {
+        e.stopPropagation(); // Prevent bubbling to document
+        toggleMenu();
+      });
+
+      // Close menu on outside click
+      document.addEventListener("click", (e) => {
+        const clickedInside = navTabs.contains(e.target) || hamburger.contains(e.target);
+        if (!clickedInside && navTabs.classList.contains("show")) {
+          navTabs.classList.remove("show");
+          hamburger.classList.remove("active");
+          document.body.style.overflow = ""; // Restore scrolling
+        }
+      });
+
+      // Prevent clicks inside menu from closing it
+      navTabs.addEventListener("click", (e) => e.stopPropagation());
   }
 }
 
