@@ -275,6 +275,12 @@ nav {
   }
 }
 
+@media (max-width: 460px) {
+  .right h2 {
+    font-size: 15px;
+  }
+}
+
 .footer {
   background-color: #222;
   color: #fff;
