@@ -229,9 +229,17 @@ nav {
     text-align: center;
   }
 
+  .right h2 {
+    font-size: 17px;
+  }
+
   .left img {
     width: 100%;
     height: auto;
+  }
+
+  .part-1{
+    padding: 60px;
   }
 
   .part-1-1{

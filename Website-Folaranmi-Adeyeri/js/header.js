@@ -10,8 +10,10 @@ class Header extends HTMLElement {
           background-color: #1c1c1c;
           padding: 10px 0;
           margin-bottom: 0;
-          position: sticky;
+          position: fixed; /* changed from sticky */
           top: 0;
+          left: 0;
+          right: 0;
           z-index: 1000;
         }
 
