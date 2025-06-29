@@ -275,9 +275,9 @@ nav {
   }
 }
 
-@media (max-width: 460px) {
+@media (max-width: 420px) {
   .right h2 {
-    font-size: 15px;
+    font-size: 11px;
   }
 }
 
