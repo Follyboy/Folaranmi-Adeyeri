@@ -38,8 +38,6 @@ class Header extends HTMLElement {
       </header>
     `;
 
-    // 2. Add the JS logic (from the old js/header.js)
-    // We use 'this.querySelector' to find elements within this component
     const menuButton = this.querySelector('#mobile-menu-button');
     const mobileMenu = this.querySelector('#mobile-menu');
     const iconMenu = this.querySelector('#icon-menu');

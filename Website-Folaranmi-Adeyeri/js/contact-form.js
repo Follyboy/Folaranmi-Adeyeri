@@ -30,7 +30,6 @@ class Contact extends HTMLElement {
       </section>
     `;
 
-    // 2. Add the JS logic (from old js/contact.js)
     const form = this.querySelector('#contactForm');
     const responseMsg = this.querySelector('#formResponse');
 

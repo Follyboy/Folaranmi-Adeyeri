@@ -26,7 +26,6 @@ class Footer extends HTMLElement {
       </footer>
     `;
 
-    // 2. Add the JS logic (from old js/footer.js)
     const currentYearEl = this.querySelector('#current-year');
     if (currentYearEl) {
       currentYearEl.textContent = new Date().getFullYear();
