@@ -1,119 +1,234 @@
-<!doctype html>
-<html class="no-js" lang="">
-
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Folaranmi Adeyeri - Biography</title>
-  <link rel="icon" href="img/fa_logo.png" type="image/png">
-  <link rel="stylesheet" href="css/style.css">
-  <meta name="description" content="">
-
-  <meta property="og:title" content="Folaranmi Adeyeri - Bio">
-  <meta property="og:description" content="Folaranmi Adeyeri is a versatile data engineer and software developer">
-  <meta property="og:image" content="img/fola.jpeg">
-  <meta property="og:url" content="https://folaranmi-adeyeri.netlify.app/">
-  <meta property="og:type" content="website">
-
-  <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#fafafa">
-  <script src="js/header.js" type="text/javascript" defer></script>
-  <script src="js/footer.js" type="text/javascript" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folaranmi Adeyeri - Data & Software Engineer</title>
+    <link rel="icon" href="img/fa_logo.png" type="image/png">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/header.js" type="text/javascript" defer></script>
+    <script src="js/contact-form.js" type="text/javascript" defer></script>
+    <script src="js/footer.js" type="text/javascript" defer></script>
+    <!-- Google Fonts: Inter & Poppins -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 </head>
+<body class="antialiased">
 
-<body>
-  <header-component></header-component>
-  <div class="part-1">
-    <div class="container">
-      <div class="left">
-        <img src="img/fola.jpeg" alt="Folaranmi Adeyeri"/>
-      </div>
-      <div class="right">
-        <h2>Software Engineer | Data Engineer</h2>
-        <h1>FOLARANMI ADEYERI</h1>
+    <!-- Header Placeholder -->
+    <!-- The content of components/header.js is loaded here -->
+    <header-component></header-component>
 
-        <div class="contact-info">
-          <p>Phone <br><span><a href="tel:+16206057316" style="color: #b3581c;">620-605-7316</a></span></p>
-          <p>Email <br><span><a href="mailto:folar.adeyeri@gmail.com" style="color: #b3581c;">folar.adeyeri@gmail.com</a></span></p>
-          <a class="vcard" href="files/Folaranmi_Adeyeri_Resume.pdf" download="Folaranmi_Adeyeri_Resume.pdf" target="_blank">Download my CV</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="part-1-1">
-    <section>
-      <h1>About Me</h1>
-      <h3>
-        Folaranmi Adeyeri is a versatile data engineer and software developer with a strong foundation
-        in backend systems, data analytics, and IT support. With hands-on experience spanning enterprise
-        environments and public sector organizations, he thrives at the intersection of technology, problem-solving,
-        and impactful data-driven solutions.<br/>
-        Currently, Folaranmi works as a Data Engineer and IT Support Specialist at Premier Engineering Consultants in
-        Kansas City, MO. There, he develops dynamic dashboards using Tableau and Power BI, equipping managers with
-        actionable insights that support strategic decision-making. He’s also implemented A/B testing frameworks
-        that led to a 15% uptick in conversion rates, and improved system performance through comprehensive updates
-        and cleanup.<br/>
-        In early 2024, he served as a Data Science Fellow at the World Bank Group, where he processed over 300GB of
-        climate data using Python (Pandas, NumPy) to uncover global climate trends. His contributions boosted model
-        performance by 25% and ensured secure data handling via AWS S3. He also played a key role in team collaboration
-        by managing version control through Git.<br/>
-        From 2020 to 2022, Folaranmi was a Software Engineer at Midwestern Interactive, where he led backend development
-        for web and mobile platforms. He consolidated microservices to reduce response time by 20%, designed and maintained
-        over 100 RESTful API and GraphQL schemas, and optimized data flow with PostgreSQL and Docker. He also implemented
-        CI/CD pipelines and automated testing to enhance code quality and deployment efficiency.<br/>
-        His tech journey started as a Web Developer at Missouri Southern State University, where he enhanced the university
-        library's website using HTML5, CSS, and JavaScript, improving mobile responsiveness and increasing user engagement
-        by 20%.<br/>
-        Outside of work, Folaranmi enjoys hiking scenic trails, traveling to new destinations, and playing Call of
-        Duty—activities that fuel his love for strategy, exploration, and fast-paced challenges.
-      </h3>
-    </section>
-  </div>
-  <div class="part-1-1">
-    <h1>Experience</h1>
-    <div class="job">
-      <div class="title">Data Engineer | IT Support</div>
-      <div class="company-date">Premier Engineering Consultants | Kansas City, MO — September 2024 – Present</div>
-      <ul>
-        <li>Developed engaging, interactive dashboards in Tableau and Power BI, empowering managers with actionable insights for data-informed decision-making through visually impactful representations of KPIs.</li>
-        <li>Implemented A/B testing methodologies to evaluate the effectiveness of marketing strategies, leading to a 15% increase in conversion rates.</li>
-        <li>Executed system cleanup and updates, enhancing performance, security, and operational efficiency across the company.</li>
-      </ul>
-    </div>
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="py-24 md:py-32 bg-gray-900 text-center">
+            <div class="max-w-4xl mx-auto px-4">
+                <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6">
+                    Hi, I'm <span class="text-gradient">Folaranmi Adeyeri</span>
+                </h1>
+                <p class="text-2xl md:text-3xl font-semibold text-indigo-300 mb-8" style="font-family: 'Poppins', sans-serif;">
+                    Data Engineer & Software Engineer
+                </p>
+                <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed">
+                    A Data Science graduate with a passion for building scalable software solutions and transforming raw data into actionable insights.
+                </p>
+                <div class="flex justify-center items-center gap-4">
+                    <a href="files/Folaranmi_Adeyeri_Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                        View My Resume
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        Get In Touch
+                    </a>
+                </div>
+                <!-- Social Links -->
+                <div class="flex justify-center space-x-6 mt-12">
+                    <!-- GitHub Link -->
+                    <a href="https://github.com/Follyboy" target="_blank" rel="noopener noreferrer" title="GitHub" class="text-gray-400 hover:text-indigo-400 transition-transform hover:scale-125">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.49.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.805c.85 0 1.7.114 2.503.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.203 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.85 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <a href="https://linkedin.com/in/folaranmi-adeyeri" target="_blank" rel="noopener noreferrer" title="LinkedIn" class="text-gray-400 hover:text-indigo-400 transition-transform hover:scale-125">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.783-1.75-1.75s.784-1.75 1.75-1.75 1.75.783 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" /></svg>
+                    </a>
+                    <a href="mailto:folar.adeyeri@gmail.com" title="Email" class="text-gray-400 hover:text-indigo-400 transition-transform hover:scale-125">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
 
-    <div class="job">
-      <div class="title">Data Science Fellow</div>
-      <div class="company-date">World Bank Group | Washington D.C — January 2024 – May 2024</div>
-      <ul>
-        <li>Analyzed and transformed 300GB+ of climate data into time series to uncover key trends in climate change across countries using Pandas and Numpy via Python.</li>
-        <li>Cleaned and normalized over 50,000 data entries, applying techniques such as outlier detection and feature scaling, resulting in a model performance increase of 25%.</li>
-        <li>Leveraged AWS S3 to securely store and manage data for cost-effective storage with high durability.</li>
-        <li>Enhanced productivity and efficiency of project within a team of 4 by enforcing Git for seamless collaboration and efficient version control.</li>
-      </ul>
-    </div>
+        <!-- About Me & Skills -->
+        <section id="about" class="py-20 bg-gray-800/50">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="section-heading"><span>About Me</span></h2>
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-12 items-start">
+                    <!-- About Me Text -->
+                    <div class="md:col-span-3">
+                        <h3 class="text-2xl font-semibold mb-4 text-white">Hello there!</h3>
+                        <p class="text-lg text-gray-300 mb-4 leading-relaxed">
+                            I'm a Data Engineer with a Master's degree in Data Science from The George Washington University. My professional journey is driven by a dual passion: transforming raw, complex data into actionable insights and building robust, scalable software applications.
+                        </p>
+                        <p class="text-lg text-gray-300 mb-4 leading-relaxed">
+                            I thrive on building software applications and backend infrastructure, a skill I honed as a Software Engineer developing APIs, managing databases, and optimizing microservices. This experience complements my data expertise, allowing me to not only analyze data but also to build the complete systems that source, process, and deliver it.
+                        </p>
+                        <p class="text-lg text-gray-300 leading-relaxed">
+                            From developing interactive dashboards at Premier Engineering Consultants to transforming climate data at the World Bank Group, I enjoy tackling challenges across the full data lifecycle. I'm currently seeking new opportunities to leverage my blended skills in data engineering and software development.
+                        </p>
+                    </div>
+                    <!-- Tech Stack -->
+                    <div class="md:col-span-2">
+                        <h3 class="text-2xl font-semibold mb-6 text-white text-center md:text-left">My Tech Stack</h3>
+                        <div class="flex flex-wrap gap-3 justify-center md:justify-start">
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">Python</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">R</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">SQL</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">PostgreSQL</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">JavaScript</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">TypeScript</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">ReactJS</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">Angular</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">Node.js</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">Flutter</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">GraphQL</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">RESTful APIs</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">Pandas</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">NumPy</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">PyTorch</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">TensorFlow</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">Dash</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">AWS</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">GCP</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">Docker</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">Kubernetes</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">Tableau</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">PowerBI</span>
+                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">Git</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <div class="job">
-      <div class="title">Software Engineer</div>
-      <div class="company-date">Midwestern Interactive | Joplin, MO — March 2020 – July 2022</div>
-      <ul>
-        <li>Developed backend infrastructure with NestJS and NodeJS for a community app, enabling content sharing and engagement in private and public groups, boosting user interaction.</li>
-        <li>Led consolidation of multiple microservices, achieving a 20% reduction in response times and a 15% decrease in latency, resulting in enhanced user experience and improved backend efficiency.</li>
-        <li>Designed over 100 RESTful API and GraphQL Schemas for multiple applications, enhancing data handling and ensuring robust performance to meet diverse user needs across various projects.</li>
-        <li>Managed and optimized the PostgreSQL database for company applications, ensuring seamless data storage, retrieval, and performance.</li>
-        <li>Utilized Docker to containerize the local development environment, improving consistency across environments.</li>
-        <li>Implemented automated unit and end-to-end testing as well as CI/CD pipelines, increasing code quality and reducing deployment errors by 30%, and streamlining workflows to boost the team’s productivity.</li>
-      </ul>
-    </div>
+        <!-- Projects -->
+        <section id="projects" class="py-20 bg-gray-900">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="section-heading"><span>My Projects</span></h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-    <div class="job">
-      <div class="title">Web Developer</div>
-      <div class="company-date">Missouri Southern State University | Joplin, MO — June 2018 – October 2019</div>
-      <ul>
-        <li>Developed and maintained the library's web presence with HTML5, CSS, and JavaScript, enhancing resource access for students, faculty, and staff with a 20% increase in user engagement.</li>
-        <li>Applied responsive web design principles, ensuring optimal user experiences across devices and increasing overall library resource usage.</li>
-      </ul>
-    </div>
-  </div>
-  <footer-component></footer-component>
+                    <!-- Project 1: Pyjack -->
+                    <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden flex flex-col transform transition-all duration-500 hover:scale-105">
+                        <img src="https://placehold.co/600x400/1f2937/a855f7?text=Python+Blackjack" alt="Pyjack Blackjack Game" class="w-full h-48 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold mb-2 text-white">Pyjack – CLI Blackjack Game</h3>
+                            <p class="text-gray-300 mb-4 flex-grow">
+                                A command-line Blackjack game in Python. Players face a virtual dealer, manage bets, and choose to hit or stand. Features betting, difficulty modes, and simple CLI commands.
+                            </p>
+                            <!-- Tech stack -->
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
+                            </div>
+                            <!-- Project Links -->
+                            <div class="flex flex-col sm:flex-row gap-4 mt-auto">
+                                <a href="https://github.com/Follyboy/Foundations_Project" target="_blank" rel="noopener noreferrer" class="project-btn project-btn-secondary">
+                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.49.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.805c.85 0 1.7.114 2.503.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.203 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.85 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
+                                    View Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Task Manager -->
+                    <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden flex flex-col transform transition-all duration-500 hover:scale-105">
+                        <img src="https://placehold.co/600x400/1f2937/a855f7?text=Task+Manager" alt="Task Manager Project" class="w-full h-48 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold mb-2 text-white">Full-Stack Task Manager</h3>
+                            <p class="text-gray-300 mb-4 flex-grow">
+                                A personal task management application built with a modern, type-safe stack.
+                            </p>
+                            <!-- Tech stack -->
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Angular</span>
+                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Node.js</span>
+                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">TypeScript</span>
+                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">SQLite</span>
+                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Tailwind CSS</span>
+                            </div>
+                            <!-- Project Links -->
+                            <div class="flex flex-col sm:flex-row gap-4 mt-auto">
+                                <a href="https://github.com/Follyboy/task-manager" target="_blank" rel="noopener noreferrer" class="project-btn project-btn-secondary">
+                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.49.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.805c.85 0 1.7.114 2.503.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.203 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.85 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
+                                    View Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: Aviation Analysis -->
+                    <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden flex flex-col transform transition-all duration-500 hover:scale-105">
+                        <img src="https://placehold.co/600x400/1f2937/a855f7?text=Aviation+Analysis" alt="Aviation Accident Analysis Project" class="w-full h-48 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold mb-2 text-white">Aviation Accident Analysis</h3>
+                            <p class="text-gray-300 mb-4 flex-grow">
+                                Extracted, transformed, and visualized aviation accident data using time series analysis. Conducted predictive analysis with PCA to identify key factors.
+                            </p>
+                            <!-- Tech stack -->
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
+                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Pandas</span>
+                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Dash</span>
+                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">PCA</span>
+                            </div>
+                            <!-- Project Links -->
+                            <div class="flex flex-col sm:flex-row gap-4 mt-auto">
+                                <a href="https://dashapp-rqiwh4ovjq-ue.a.run.app/" target="_blank" rel="noopener noreferrer" class="project-btn project-btn-primary">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                    Live Demo
+                                </a>
+                                <a href="https://github.com/Follyboy/Aviation_Accident_Analysis" target="_blank" rel="noopener noreferrer" class="project-btn project-btn-secondary">
+                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.49.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.805c.85 0 1.7.114 2.503.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.203 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.85 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
+                                    View Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 4: Car Prediction -->
+                    <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden flex flex-col transform transition-all duration-500 hover:scale-105">
+                        <img src="https://placehold.co/600x400/1f2937/a855f7?text=Car+Prediction" alt="Cloud Car Prediction Project" class="w-full h-48 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold mb-2 text-white">Cloud Car Prediction Project</h3>
+                            <p class="text-gray-300 mb-4 flex-grow">
+                                Developed a predictive model for car classifications using AWS SageMaker, TensorFlow, and PyTorch for deep learning.
+                            </p>
+                            <!-- Tech stack -->
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">AWS SageMaker</span>
+                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">TensorFlow</span>
+                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">PyTorch</span>
+                            </div>
+                            <!-- Project Links -->
+                            <div class="flex flex-col sm:flex-row gap-4 mt-auto">
+                                <a href="https://github.com/Follyboy/Cloud_Computing" target="_blank" rel="noopener noreferrer" class="project-btn project-btn-secondary">
+                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.49.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.805c.85 0 1.7.114 2.503.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.203 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.85 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
+                                    View Code
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Placeholder -->
+        <contact-component></contact-component>
+    </main>
+
+    <!-- Footer Placeholder -->
+    <footer-component></footer-component>
 </body>
 </html>

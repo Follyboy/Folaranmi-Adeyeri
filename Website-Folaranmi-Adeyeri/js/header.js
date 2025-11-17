@@ -5,163 +5,83 @@ class Header extends HTMLElement {
 
   connectedCallback() {
     this.innerHTML = `
-      <style>
-        nav {
-          background-color: #1c1c1c;
-          padding: 10px 0;
-          margin-bottom: 0;
-          position: fixed; /* changed from sticky */
-          top: 0;
-          left: 0;
-          right: 0;
-          z-index: 1000;
-        }
+      <header id="main-header" class="sticky top-0 z-50 w-full backdrop-blur-lg bg-gray-900/80 border-b border-gray-800 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4">
+          <nav class="flex justify-between items-center h-20">
+            <!-- Logo/Name -->
+            <a href="#" class="text-2xl font-bold text-white hover:text-indigo-400 transition-colors relative h-8 flex items-center whitespace-nowrap">
+              <span id="logo-full" class="absolute inset-0">Folaranmi Adeyeri</span>
+              <span id="logo-initials" class="absolute inset-0">FA</span>
+            </a>
+            <!-- Nav Links (Desktop) -->
+            <ul class="hidden md:flex space-x-8">
+              <li><a href="#about" class="font-medium text-gray-300 hover:text-indigo-400 transition-colors">About</a></li>
+              <li><a href="#projects" class="font-medium text-gray-300 hover:text-indigo-400 transition-colors">Projects</a></li>
+              <li><a href="#contact" class="font-medium text-gray-300 hover:text-indigo-400 transition-colors">Contact</a></li>
+            </ul>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-300 hover:text-white focus:outline-none">
+              <svg id="icon-menu" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+              <svg id="icon-close" class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+          </nav>
+        </div>
 
-        .nav-container {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 20px;
-        }
-
-        .hamburger {
-          display: none;
-          flex-direction: column;
-          cursor: pointer;
-          z-index: 1101;
-          width: 30px;
-          height: 25px;
-          justify-content: center;
-        }
-
-        .hamburger span {
-          height: 3px;
-          width: 100%;
-          background: white;
-          margin: 4px 0;
-          transition: all 0.3s ease;
-          border-radius: 2px;
-        }
-
-        /* When menu is open */
-        .hamburger.active span:nth-child(1) {
-          transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-          opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-          transform: rotate(-45deg) translate(6px, -6px);
-        }
-
-        .tabs {
-          list-style: none;
-          display: flex;
-          gap: 30px;
-          padding: 0;
-          margin: 0;
-        }
-
-        .tabs li a {
-          color: white;
-          text-decoration: none;
-          font-weight: bold;
-          padding: 10px 15px;
-          transition: background 0.3s, color 0.3s;
-        }
-
-        .tabs li a:hover {
-          background-color: #444;
-          border-radius: 5px;
-        }
-
-        @media (max-width: 850px) {
-          .tabs {
-            flex-direction: column;
-            position: fixed;
-            top: 0;
-            left: -250px; /* ← slide from the left */
-            width: 250px;
-            height: 100%;
-            background-color: #1c1c1c;
-            padding-top: 20px;
-            transition: left 0.3s ease;
-            gap: 0;
-            z-index: 1100;
-          }
-
-          .tabs.show {
-            left: 0; /* ← when shown, move into view */
-          }
-
-          .nav-container {
-            justify-content: space-between;
-          }
-
-          .tabs li {
-            margin: 10px 0;
-            text-align: center;
-          }
-
-          .hamburger {
-            display: flex;
-          }
-        }
-      </style>
-
-      <nav>
-        <div class="nav-container">
-          <div class="hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <ul class="tabs" id="navTabs">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="education.html">Education</a></li>
-            <li><a href="contact.html">Contact</a></li>
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-gray-900/95 backdrop-blur-lg shadow-lg z-40">
+          <ul class="flex flex-col items-center space-y-6 py-6">
+            <li><a href="#about" class="mobile-nav-link font-medium text-lg text-gray-300 hover:text-indigo-400 transition-colors">About</a></li>
+            <li><a href="#projects" class="mobile-nav-link font-medium text-lg text-gray-300 hover:text-indigo-400 transition-colors">Projects</a></li>
+            <li><a href="#contact" class="mobile-nav-link font-medium text-lg text-gray-300 hover:text-indigo-400 transition-colors">Contact</a></li>
           </ul>
         </div>
-      </nav>
+      </header>
     `;
 
-      const hamburger = this.querySelector("#hamburger");
-      const navTabs = this.querySelector("#navTabs");
+    // 2. Add the JS logic (from the old js/header.js)
+    // We use 'this.querySelector' to find elements within this component
+    const menuButton = this.querySelector('#mobile-menu-button');
+    const mobileMenu = this.querySelector('#mobile-menu');
+    const iconMenu = this.querySelector('#icon-menu');
+    const iconClose = this.querySelector('#icon-close');
+    const navLinks = this.querySelectorAll('.mobile-nav-link');
 
+    if (menuButton && mobileMenu && iconMenu && iconClose) {
       const toggleMenu = () => {
-        const isOpen = navTabs.classList.toggle("show");
-        hamburger.classList.toggle("active");
-
-        // Disable or enable scrolling
-        document.body.style.overflow = isOpen ? "hidden" : "";
+        mobileMenu.classList.toggle('hidden');
+        iconMenu.classList.toggle('hidden');
+        iconClose.classList.toggle('hidden');
       };
 
-      hamburger.addEventListener("click", (e) => {
-        e.stopPropagation(); // Prevent bubbling to document
-        toggleMenu();
-      });
+      menuButton.addEventListener('click', toggleMenu);
 
-      // Close menu on outside click
-      document.addEventListener("click", (e) => {
-        const clickedInside = navTabs.contains(e.target) || hamburger.contains(e.target);
-        if (!clickedInside && navTabs.classList.contains("show")) {
-          navTabs.classList.remove("show");
-          hamburger.classList.remove("active");
-          document.body.style.overflow = ""; // Restore scrolling
+      // Close menu when a nav link is clicked (for single-page nav)
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (!mobileMenu.classList.contains('hidden')) {
+            toggleMenu();
+          }
+        });
+      });
+    } else {
+      console.warn('Header mobile menu elements not found. Navigation might not work.');
+    }
+
+    // Header scroll effect
+    const header = this.querySelector('#main-header');
+    if (header) {
+      // The scroll event is on the window, but it affects the header
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
         }
       });
-
-      // Prevent clicks inside menu from closing it
-      navTabs.addEventListener("click", (e) => e.stopPropagation());
+    } else {
+      console.warn('Main header element not found. Scroll effect will not work.');
+    }
   }
 }
 
 customElements.define('header-component', Header);
-
-
-
