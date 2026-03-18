@@ -5,267 +5,668 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Folaranmi Adeyeri - Data & Software Engineer</title>
     <link rel="icon" href="img/fa_logo.png" type="image/png">
-    <link rel="shortcut icon" href="img/fa_logo.png" type="image/png">
-    <link rel="apple-touch-icon" href="img/fa_logo.png">
 
     <meta property="og:title" content="Folaranmi Adeyeri">
     <meta property="og:description" content="About Folaranmi Adeyeri's Professional life">
     <meta property="og:url" content="https://folaranmiadeyeri.com/">
     <meta property="og:image" content="img/fola.jpeg">
     <meta property="og:type" content="website">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="js/header.js" type="text/javascript" defer></script>
-    <script src="js/contact-form.js" type="text/javascript" defer></script>
-    <script src="js/footer.js" type="text/javascript" defer></script>
-    <!-- ================================================================================== -->
-    <!-- GOOGLE KNOWLEDGE PANEL SCHEMA                                                      -->
-    <!-- ================================================================================== -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Folaranmi Adeyeri",
-      "url": "https://folaranmiadeyeri.com/",
-      "image": "https://folaranmiadeyeri.com/img/fola.jpeg",
-      "jobTitle": "Data Engineer & Software Engineer",
-      "alumniOf": {
-        "@type": "CollegeOrUniversity",
-        "name": "The George Washington University"
-      },
-      "worksFor": {
-        "@type": "Organization",
-        "name": "Premier Engineering Consultants"
-      },
-      "description": "Data Engineer and Software Engineer building scalable software solutions and transforming raw data into actionable insights.",
-      "sameAs": [
-        "https://linkedin.com/in/folaranmi-adeyeri",
-        "https://github.com/Follyboy",
-        "https://folaranmiadeyeri.com/"
-      ]
-    }
-    </script>
-    <!-- END: GOOGLE KNOWLEDGE PANEL SCHEMA -->
-    <!-- Google Fonts: Inter & Poppins -->
-    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google Fonts: Inter (Clean sans), JetBrains Mono (Tech vibe), & VT323 (80s Terminal) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=VT323&display=swap" rel="stylesheet">
+
+    <!-- GSAP for smooth reveal animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Lenis for buttery smooth scrolling -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.32/dist/lenis.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        retro: ['VT323', 'monospace'],
+                    },
+                    colors: {
+                        background: '#09090b', /* Zinc 950 */
+                        card: '#18181b', /* Zinc 900 */
+                        cardBorder: '#27272a', /* Zinc 800 */
+                        accent: '#22d3ee', /* Cyan accent to match stack page */
+                        accentHover: '#06b6d4',
+                    },
+                    animation: {
+                        'ambient-glow': 'ambient 8s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        ambient: {
+                            '0%': { transform: 'translate(-50%, -50%) scale(1)', opacity: 0.5 },
+                            '100%': { transform: 'translate(-50%, -50%) scale(1.2)', opacity: 0.8 },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #09090b;
+            color: #fafafa;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+
+        /* Smooth Scroll Base Styles */
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+
+        /* Background Glow Effects */
+        .glow-bg {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            width: 100vw;
+            height: 100vw;
+            max-width: 800px;
+            max-height: 800px;
+            background: radial-gradient(circle, rgba(34,211,238,0.15) 0%, rgba(0,0,0,0) 60%);
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            pointer-events: none;
+            filter: blur(60px);
+        }
+
+        /* Bento Box Hover Effects */
+        .bento-card {
+            background: #18181b;
+            border: 1px solid #27272a;
+            border-radius: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .bento-card:hover {
+            border-color: #3f3f46;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+        }
+
+        /* Subtle inner gradient for cards */
+        .bento-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom right, rgba(255,255,255,0.03), transparent);
+            pointer-events: none;
+        }
+
+        /* Skill Tag Scroll Animation */
+        .skills-marquee {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .glass-nav {
+            background: rgba(9, 9, 11, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Gradient Text Utility */
+        .text-gradient {
+            background: linear-gradient(to right, #fff, #a1a1aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Mobile Menu Animations */
+        .mobile-menu-overlay {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Hamburger to X Animation */
+        .hamburger-line {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform-origin: center;
+        }
+        .menu-open .line-1 { transform: translateY(7px) rotate(45deg); }
+        .menu-open .line-2 { opacity: 0; }
+        .menu-open .line-3 { transform: translateY(-7px) rotate(-45deg); }
+
+        /* =========================================================
+           80s RETRO MODAL STYLES
+           ========================================================= */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .retro-modal {
+            background: #0a0a1a;
+            border: 2px solid #ff2a6d;
+            box-shadow: 0 0 20px rgba(255, 42, 109, 0.5), inset 0 0 20px rgba(255, 42, 109, 0.2);
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 550px;
+            position: relative;
+            color: #05d9e8;
+            text-transform: uppercase;
+            font-family: 'VT323', monospace;
+            animation: glitch-anim 0.3s cubic-bezier(.25, .46, .45, .94) both;
+        }
+
+        .retro-modal::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 3px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .retro-input {
+            width: 100%;
+            background: rgba(5, 217, 232, 0.05);
+            border: 1px solid #05d9e8;
+            color: #fff;
+            padding: 0.75rem 1rem;
+            margin-top: 0.5rem;
+            font-family: 'VT323', monospace;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        .retro-input:focus {
+            outline: none;
+            box-shadow: 0 0 15px rgba(5, 217, 232, 0.5);
+            background: rgba(5, 217, 232, 0.15);
+            border-color: #fff;
+        }
+
+        .retro-input::placeholder {
+            color: rgba(5, 217, 232, 0.4);
+        }
+
+        .retro-btn {
+            background: transparent;
+            color: #ff2a6d;
+            border: 2px solid #ff2a6d;
+            padding: 0.75rem 2.5rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            font-family: 'VT323', monospace;
+            transition: all 0.2s;
+            text-shadow: 0 0 5px #ff2a6d;
+            box-shadow: 0 0 10px rgba(255, 42, 109, 0.3), inset 0 0 10px rgba(255, 42, 109, 0.3);
+            position: relative;
+            z-index: 10;
+        }
+
+        .retro-btn:hover {
+            background: #ff2a6d;
+            color: #0a0a1a;
+            box-shadow: 0 0 20px #ff2a6d, inset 0 0 20px #ff2a6d;
+        }
+
+        .retro-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: #ff2a6d;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: text-shadow 0.2s;
+        }
+
+        .retro-close:hover {
+            text-shadow: 0 0 10px #ff2a6d;
+            color: #fff;
+        }
+
+        @keyframes glitch-anim {
+            0% { transform: scale(0.95); opacity: 0; filter: blur(4px); }
+            100% { transform: scale(1); opacity: 1; filter: blur(0px); }
+        }
+    </style>
 </head>
-<body class="antialiased">
+<body class="antialiased selection:bg-accent selection:text-black">
 
-    <!-- Header Placeholder -->
-    <!-- The content of components/header.js is loaded here -->
-    <header-component></header-component>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-nav px-6 py-4 md:px-12 flex justify-between items-center transition-all duration-300">
+        <!-- Logo -->
+        <a href="#" class="font-bold text-2xl tracking-tighter text-white flex items-center gap-1 z-50 relative">
+            FA<span class="text-accent">.</span>
+        </a>
 
-    <main>
-        <!-- Hero Section -->
-        <section id="hero" class="py-24 md:py-32 bg-gray-900 text-center">
-            <div class="max-w-4xl mx-auto px-4">
-                <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6">
-                    Hi, I'm <span class="text-gradient">Folaranmi Adeyeri</span>
-                </h1>
-                <p class="text-2xl md:text-3xl font-semibold text-indigo-300 mb-8" style="font-family: 'Poppins', sans-serif;">
-                    Data Engineer & Software Engineer
-                </p>
-                <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed">
-                    A Data Science graduate with a passion for building scalable software solutions and transforming raw data into actionable insights.
-                </p>
-                <div class="flex justify-center items-center gap-4">
-                    <a href="files/Folaranmi_Adeyeri_Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                        View My Resume
+        <!-- Desktop Links -->
+        <div class="hidden md:flex items-center gap-8 font-medium text-sm text-zinc-400">
+            <a href="#about" class="hover:text-white transition-colors">About</a>
+            <a href="stack.html" class="hover:text-white transition-colors flex items-center gap-1 group">
+                Stack
+                <svg class="w-3 h-3 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            </a>
+            <a href="#projects" class="hover:text-white transition-colors">Projects</a>
+            <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+        </div>
+
+        <!-- Desktop Resume Button -->
+        <div class="hidden md:block">
+            <a href="files/Folaranmi_Adeyeri_Resume.pdf" target="_blank" class="px-5 py-2.5 rounded-full bg-white text-background font-semibold text-sm hover:bg-zinc-200 hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] inline-block">
+                Resume
+            </a>
+        </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn" class="md:hidden z-50 relative p-2 focus:outline-none" aria-label="Toggle Menu">
+            <div class="w-6 h-4 flex flex-col justify-between">
+                <span class="hamburger-line line-1 w-full h-[2px] bg-white rounded-full"></span>
+                <span class="hamburger-line line-2 w-full h-[2px] bg-white rounded-full"></span>
+                <span class="hamburger-line line-3 w-full h-[2px] bg-white rounded-full"></span>
+            </div>
+        </button>
+    </nav>
+
+    <!-- Ultra-Modern Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay fixed inset-0 bg-background/90 backdrop-blur-2xl z-40 flex flex-col items-center justify-center">
+        <div class="flex flex-col items-center gap-8 text-2xl font-semibold text-zinc-400">
+            <a href="#about" class="mobile-link hover:text-white transition-colors">About</a>
+            <a href="stack.html" class="mobile-link text-white flex items-center gap-2">
+                Tech Stack
+                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            </a>
+            <a href="#projects" class="mobile-link hover:text-white transition-colors">Projects</a>
+            <a href="#contact" class="mobile-link hover:text-white transition-colors">Contact</a>
+
+            <div class="w-12 h-[1px] bg-zinc-800 my-4"></div>
+
+            <a href="files/Folaranmi_Adeyeri_Resume.pdf" target="_blank" class="mobile-link px-8 py-3 rounded-full bg-white text-background font-bold text-lg shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                View Resume
+            </a>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-6 md:px-12 pt-32 md:pt-40 pb-24">
+
+        <!-- Ultra Modern Hero Section -->
+        <section class="min-h-[75vh] md:min-h-[70vh] flex flex-col justify-center items-start mb-20 relative">
+
+            <!-- Animated Background Glow restricted to Hero -->
+            <div class="glow-bg animate-ambient-glow"></div>
+
+            <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-accent/20 bg-accent/5 mb-8 reveal-up backdrop-blur-sm shadow-[0_0_20px_rgba(34,211,238,0.05)]">
+                <span class="relative flex h-2.5 w-2.5">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
+                </span>
+                <span class="text-xs md:text-sm font-mono text-accent uppercase tracking-widest">Available for impact</span>
+            </div>
+
+            <h1 class="text-[12vw] md:text-7xl lg:text-8xl font-extrabold tracking-tighter mb-6 reveal-up leading-[1.05] md:leading-tight">
+                <span class="text-white block mb-2">Data Engineer</span>
+                <span class="text-gradient">& Software Engineer.</span>
+            </h1>
+
+            <p class="text-lg md:text-2xl text-zinc-400 max-w-3xl mb-12 leading-relaxed reveal-up font-light">
+                Hi, I'm <span class="text-white font-medium">Folaranmi Adeyeri</span>. I bridge the gap between complex data logic and robust backend architecture, transforming raw data pipelines into scalable, actionable insights.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-6 reveal-up w-full md:w-auto">
+                <a href="#projects" class="w-full md:w-auto text-center px-8 py-4 rounded-full bg-white text-background font-bold text-sm md:text-base hover:scale-105 transition-transform duration-300 shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                    Explore My Work
+                </a>
+                <div class="flex gap-4 items-center w-full justify-center md:w-auto md:justify-start mt-4 md:mt-0">
+                    <a href="https://github.com/Follyboy" target="_blank" aria-label="GitHub" class="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:border-zinc-500 hover:bg-zinc-800 transition-all">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.49.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.805c.85 0 1.7.114 2.503.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.203 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.85 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
                     </a>
-                    <a href="#contact" class="btn btn-secondary">
-                        Get In Touch
-                    </a>
-                </div>
-                <!-- Social Links -->
-                <div class="flex justify-center space-x-6 mt-12">
-                    <!-- GitHub Link -->
-                    <a href="https://github.com/Follyboy" target="_blank" rel="noopener noreferrer" title="GitHub" class="text-gray-400 hover:text-indigo-400 transition-transform hover:scale-125">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.49.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.805c.85 0 1.7.114 2.503.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.203 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.85 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" />
-                        </svg>
-                    </a>
-                    <a href="https://linkedin.com/in/folaranmi-adeyeri" target="_blank" rel="noopener noreferrer" title="LinkedIn" class="text-gray-400 hover:text-indigo-400 transition-transform hover:scale-125">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.783-1.75-1.75s.784-1.75 1.75-1.75 1.75.783 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" /></svg>
+                    <a href="https://linkedin.com/in/folaranmi-adeyeri" target="_blank" aria-label="LinkedIn" class="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white hover:border-zinc-500 hover:bg-zinc-800 transition-all">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.783-1.75-1.75s.784-1.75 1.75-1.75 1.75.783 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" /></svg>
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- About Me & Skills -->
-        <section id="about" class="py-20 bg-gray-800/50">
-            <div class="max-w-6xl mx-auto px-4">
-                <h2 class="section-heading"><span>About Me</span></h2>
-                <div class="grid grid-cols-1 md:grid-cols-5 gap-12 items-start">
-                    <!-- About Me Text -->
-                    <div class="md:col-span-3">
-                        <h3 class="text-2xl font-semibold mb-4 text-white">Hello there!</h3>
-                        <p class="text-lg text-gray-300 mb-4 leading-relaxed">
-                            I'm a Data Engineer with a Master's degree in Data Science from The George Washington University. My professional journey is driven by a dual passion: transforming raw, complex data into actionable insights and building robust, scalable software applications.
+        <!-- Bento Box: About & Skills -->
+        <section id="about" class="mb-32 scroll-mt-32">
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white mb-10 reveal-up">Background</h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- About Card -->
+                <div class="bento-card p-8 md:p-10 lg:col-span-2 reveal-up">
+                    <h3 class="text-xl font-medium text-white mb-6 flex items-center gap-3">
+                        <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        The Engine Room
+                    </h3>
+                    <div class="space-y-6 text-zinc-400 leading-relaxed text-base md:text-lg font-light">
+                        <p>
+                            I hold a <strong class="text-zinc-100 font-medium">Master's degree in Data Science</strong> from The George Washington University. My professional journey is driven by a dual passion: transforming raw, complex data into actionable insights and building robust, scalable software applications.
                         </p>
-                        <p class="text-lg text-gray-300 mb-4 leading-relaxed">
+                        <p>
                             I thrive on building software applications and backend infrastructure, a skill I honed as a Software Engineer developing APIs, managing databases, and optimizing microservices. This experience complements my data expertise, allowing me to not only analyze data but also to build the complete systems that source, process, and deliver it.
                         </p>
-                        <p class="text-lg text-gray-300 leading-relaxed">
-                            From developing interactive dashboards at Premier Engineering Consultants to transforming climate data at the World Bank Group, I enjoy tackling challenges across the full data lifecycle. I'm currently seeking new opportunities to leverage my blended skills in data engineering and software development.
+                        <p>
+                            From developing interactive dashboards at <span class="text-zinc-100 font-medium">Premier Engineering Consultants</span> to transforming climate data at the <span class="text-zinc-100 font-medium">World Bank Group</span>, I enjoy tackling challenges across the full data lifecycle.
                         </p>
                     </div>
-                    <!-- Tech Stack -->
-                    <div class="md:col-span-2">
-                        <h3 class="text-2xl font-semibold mb-6 text-white text-center md:text-left">My Tech Stack</h3>
-                        <div class="flex flex-wrap gap-3 justify-center md:justify-start">
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">HTML</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">CSS</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">Python</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">R</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">SQL</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">PostgreSQL</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">JavaScript</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">TypeScript</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">ReactJS</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">Angular</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">Node.js</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">Flutter</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">GraphQL</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">RESTful APIs</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">Pandas</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">NumPy</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">PyTorch</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">TensorFlow</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">Dash</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">AWS</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">GCP</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">Docker</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">Kubernetes</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">Tableau</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">PowerBI</span>
-                            <span class="bg-gray-700 text-gray-200 text-sm font-medium px-4 py-2 rounded-full">Git</span>
-                        </div>
+                </div>
+
+                <!-- Skills Card (Gateway to stack.html) -->
+                <div class="bento-card p-8 md:p-10 lg:col-span-1 flex flex-col reveal-up">
+                    <div class="flex justify-between items-center mb-6 z-10 relative">
+                        <h3 class="text-xl font-medium text-white flex items-center gap-3">
+                            <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
+                            Tech Stack
+                        </h3>
+                        <!-- LINK TO NEW STACK PAGE -->
+                        <a href="stack.html" class="text-xs font-mono text-accent hover:text-white transition-colors flex items-center gap-1 group">
+                            Explore All
+                            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
                     </div>
+
+                    <!-- Link wrapper across the whole block for UX -->
+                    <a href="stack.html" class="skills-marquee h-full align-top content-start z-10 relative group-hover:opacity-80 transition-opacity">
+                        <!-- Languages -->
+                        <span class="px-3 py-2 bg-zinc-800/40 border border-zinc-700/50 rounded-md text-sm font-mono text-zinc-300">Python</span>
+                        <span class="px-3 py-2 bg-zinc-800/40 border border-zinc-700/50 rounded-md text-sm font-mono text-zinc-300">R</span>
+                        <span class="px-3 py-2 bg-zinc-800/40 border border-zinc-700/50 rounded-md text-sm font-mono text-zinc-300">SQL</span>
+                        <span class="px-3 py-2 bg-zinc-800/40 border border-zinc-700/50 rounded-md text-sm font-mono text-zinc-300">JavaScript</span>
+                        <!-- Frontend/Backend -->
+                        <span class="px-3 py-2 bg-zinc-800/40 border border-zinc-700/50 rounded-md text-sm font-mono text-zinc-300">ReactJS</span>
+                        <span class="px-3 py-2 bg-zinc-800/40 border border-zinc-700/50 rounded-md text-sm font-mono text-zinc-300">Node.js</span>
+                        <!-- Data/ML -->
+                        <span class="px-3 py-2 bg-accent/10 border border-accent/30 text-accent rounded-md text-sm font-mono">PostgreSQL</span>
+                        <span class="px-3 py-2 bg-accent/10 border border-accent/30 text-accent rounded-md text-sm font-mono">Pandas</span>
+                        <span class="px-3 py-2 bg-accent/10 border border-accent/30 text-accent rounded-md text-sm font-mono">PyTorch</span>
+                        <!-- Cloud/DevOps -->
+                        <span class="px-3 py-2 bg-zinc-800/40 border border-zinc-700/50 rounded-md text-sm font-mono text-zinc-300">AWS</span>
+                        <span class="px-3 py-2 bg-zinc-800/40 border border-zinc-700/50 rounded-md text-sm font-mono text-zinc-300">Docker</span>
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- Projects -->
-        <section id="projects" class="py-20 bg-gray-900">
-            <div class="max-w-6xl mx-auto px-4">
-                <h2 class="section-heading"><span>My Projects</span></h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Projects Grid -->
+        <section id="projects" class="mb-32 scroll-mt-32">
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white mb-10 reveal-up">Selected Works</h2>
 
-                    <!-- Project 1: Pyjack -->
-                    <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden flex flex-col transform transition-all duration-500 hover:scale-105">
-                        <img src="https://placehold.co/600x400/1f2937/a855f7?text=Python+Blackjack" alt="Pyjack Blackjack Game" class="w-full h-48 object-cover">
-                        <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-xl font-bold mb-2 text-white">Pyjack – CLI Blackjack Game</h3>
-                            <p class="text-gray-300 mb-4 flex-grow">
-                                A command-line Blackjack game in Python. Players face a virtual dealer, manage bets, and choose to hit or stand. Features betting, difficulty modes, and simple CLI commands.
-                            </p>
-                            <!-- Tech stack -->
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
-                            </div>
-                            <!-- Project Links -->
-                            <div class="flex flex-col sm:flex-row gap-4 mt-auto">
-                                <a href="https://github.com/Follyboy/Foundations_Project" target="_blank" rel="noopener noreferrer" class="project-btn project-btn-secondary">
-                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.49.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.805c.85 0 1.7.114 2.503.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.203 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.85 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
-                                    View Code
-                                </a>
-                            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+
+                <!-- Project 1: Task Manager -->
+                <div class="bento-card group flex flex-col reveal-up">
+                    <div class="h-56 md:h-72 overflow-hidden relative border-b border-cardBorder">
+                        <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&q=80&w=1000" alt="Task Manager" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    </div>
+                    <div class="p-6 md:p-8 flex flex-col flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-bold text-white">Full-Stack Task Manager</h3>
+                            <a href="https://github.com/Follyboy/task-manager" target="_blank" aria-label="GitHub Repository" class="text-zinc-500 hover:text-white transition-colors bg-zinc-800/50 p-2 rounded-full hover:bg-zinc-700">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            </a>
+                        </div>
+                        <p class="text-zinc-400 mb-8 flex-grow leading-relaxed font-light">
+                            A personal task management application built from the ground up utilizing a modern, type-safe stack for robust state management and seamless user experience.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-auto">
+                            <span class="text-xs font-mono text-zinc-300 bg-zinc-800/60 px-3 py-1.5 rounded-md border border-zinc-700">Angular</span>
+                            <span class="text-xs font-mono text-zinc-300 bg-zinc-800/60 px-3 py-1.5 rounded-md border border-zinc-700">Node.js</span>
+                            <span class="text-xs font-mono text-zinc-300 bg-zinc-800/60 px-3 py-1.5 rounded-md border border-zinc-700">SQLite</span>
+                            <span class="text-xs font-mono text-zinc-300 bg-zinc-800/60 px-3 py-1.5 rounded-md border border-zinc-700">TypeScript</span>
                         </div>
                     </div>
-
-                    <!-- Project 2: Task Manager -->
-                    <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden flex flex-col transform transition-all duration-500 hover:scale-105">
-                        <img src="https://placehold.co/600x400/1f2937/a855f7?text=Task+Manager" alt="Task Manager Project" class="w-full h-48 object-cover">
-                        <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-xl font-bold mb-2 text-white">Full-Stack Task Manager</h3>
-                            <p class="text-gray-300 mb-4 flex-grow">
-                                A personal task management application built with a modern, type-safe stack.
-                            </p>
-                            <!-- Tech stack -->
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Angular</span>
-                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Node.js</span>
-                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">TypeScript</span>
-                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">SQLite</span>
-                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Tailwind CSS</span>
-                            </div>
-                            <!-- Project Links -->
-                            <div class="flex flex-col sm:flex-row gap-4 mt-auto">
-                                <a href="https://github.com/Follyboy/task-manager" target="_blank" rel="noopener noreferrer" class="project-btn project-btn-secondary">
-                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.49.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.805c.85 0 1.7.114 2.503.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.203 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.85 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
-                                    View Code
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 3: Aviation Analysis -->
-                    <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden flex flex-col transform transition-all duration-500 hover:scale-105">
-                        <img src="https://placehold.co/600x400/1f2937/a855f7?text=Aviation+Analysis" alt="Aviation Accident Analysis Project" class="w-full h-48 object-cover">
-                        <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-xl font-bold mb-2 text-white">Aviation Accident Analysis</h3>
-                            <p class="text-gray-300 mb-4 flex-grow">
-                                Extracted, transformed, and visualized aviation accident data using time series analysis. Conducted predictive analysis with PCA to identify key factors.
-                            </p>
-                            <!-- Tech stack -->
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
-                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Pandas</span>
-                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">Dash</span>
-                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">HTML</span>
-                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">CSS</span>
-                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">PCA</span>
-                            </div>
-                            <!-- Project Links -->
-                            <div class="flex flex-col sm:flex-row gap-4 mt-auto">
-                                <a href="https://dashapp-rqiwh4ovjq-ue.a.run.app/" target="_blank" rel="noopener noreferrer" class="project-btn project-btn-primary">
-                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                                    Live Demo
-                                </a>
-                                <a href="https://github.com/Follyboy/Aviation_Accident_Analysis" target="_blank" rel="noopener noreferrer" class="project-btn project-btn-secondary">
-                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.49.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.805c.85 0 1.7.114 2.503.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.203 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.85 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
-                                    View Code
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 4: Car Prediction -->
-                    <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden flex flex-col transform transition-all duration-500 hover:scale-105">
-                        <img src="https://placehold.co/600x400/1f2937/a855f7?text=Car+Prediction" alt="Cloud Car Prediction Project" class="w-full h-48 object-cover">
-                        <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-xl font-bold mb-2 text-white">Cloud Car Prediction Project</h3>
-                            <p class="text-gray-300 mb-4 flex-grow">
-                                Developed a predictive model for car classifications using AWS SageMaker, TensorFlow, and PyTorch for deep learning.
-                            </p>
-                            <!-- Tech stack -->
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">AWS SageMaker</span>
-                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">TensorFlow</span>
-                                <span class="bg-indigo-700 text-indigo-100 text-xs font-semibold px-2.5 py-0.5 rounded-full">PyTorch</span>
-                            </div>
-                            <!-- Project Links -->
-                            <div class="flex flex-col sm:flex-row gap-4 mt-auto">
-                                <a href="https://github.com/Follyboy/Cloud_Computing" target="_blank" rel="noopener noreferrer" class="project-btn project-btn-secondary">
-                                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.49.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.805c.85 0 1.7.114 2.503.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.203 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.85 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
-                                    View Code
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
+
+                <!-- Project 2: Cloud Car Prediction -->
+                <div class="bento-card group flex flex-col reveal-up">
+                    <div class="h-56 md:h-72 overflow-hidden relative border-b border-cardBorder">
+                        <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=1000" alt="Car Prediction" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    </div>
+                    <div class="p-6 md:p-8 flex flex-col flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-bold text-white">Cloud Car Prediction</h3>
+                            <a href="https://github.com/Follyboy/Cloud_Computing" target="_blank" aria-label="GitHub Repository" class="text-zinc-500 hover:text-white transition-colors bg-zinc-800/50 p-2 rounded-full hover:bg-zinc-700">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            </a>
+                        </div>
+                        <p class="text-zinc-400 mb-8 flex-grow leading-relaxed font-light">
+                            Developed a highly accurate predictive model for car classifications leveraging the power of AWS SageMaker, combining TensorFlow and PyTorch for advanced deep learning tasks.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-auto">
+                            <span class="text-xs font-mono text-accent bg-accent/10 px-3 py-1.5 rounded-md border border-accent/20">AWS SageMaker</span>
+                            <span class="text-xs font-mono text-accent bg-accent/10 px-3 py-1.5 rounded-md border border-accent/20">TensorFlow</span>
+                            <span class="text-xs font-mono text-accent bg-accent/10 px-3 py-1.5 rounded-md border border-accent/20">PyTorch</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: Aviation Analysis -->
+                <div class="bento-card group flex flex-col reveal-up">
+                    <div class="h-56 md:h-72 overflow-hidden relative border-b border-cardBorder">
+                        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80&w=1000" alt="Aviation Analysis" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    </div>
+                    <div class="p-6 md:p-8 flex flex-col flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-bold text-white">Aviation Accident Analysis</h3>
+                            <div class="flex gap-2">
+                                <a href="https://dashapp-rqiwh4ovjq-ue.a.run.app/" target="_blank" title="Live Demo" class="text-accent hover:text-white transition-colors bg-accent/10 hover:bg-accent/20 p-2 rounded-full">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                </a>
+                                <a href="https://github.com/Follyboy/Aviation_Accident_Analysis" target="_blank" title="Repository" class="text-zinc-500 hover:text-white transition-colors bg-zinc-800/50 p-2 rounded-full hover:bg-zinc-700">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.49.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.805c.85 0 1.7.114 2.503.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.203 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.85 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
+                                </a>
+                            </div>
+                        </div>
+                        <p class="text-zinc-400 mb-8 flex-grow leading-relaxed font-light">
+                            Extracted, transformed, and visualized aviation accident data using time series analysis. Conducted predictive analysis utilizing Principal Component Analysis (PCA) to identify key factors.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-auto">
+                            <span class="text-xs font-mono text-zinc-300 bg-zinc-800/60 px-3 py-1.5 rounded-md border border-zinc-700">Pandas</span>
+                            <span class="text-xs font-mono text-zinc-300 bg-zinc-800/60 px-3 py-1.5 rounded-md border border-zinc-700">Dash</span>
+                            <span class="text-xs font-mono text-zinc-300 bg-zinc-800/60 px-3 py-1.5 rounded-md border border-zinc-700">PCA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Pyjack -->
+                <div class="bento-card group flex flex-col reveal-up">
+                    <div class="h-56 md:h-72 overflow-hidden relative border-b border-cardBorder">
+                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=1000" alt="Pyjack Blackjack Game" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                    </div>
+                    <div class="p-6 md:p-8 flex flex-col flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl font-bold text-white">Pyjack – CLI Game</h3>
+                            <a href="https://github.com/Follyboy/Foundations_Project" target="_blank" aria-label="GitHub Repository" class="text-zinc-500 hover:text-white transition-colors bg-zinc-800/50 p-2 rounded-full hover:bg-zinc-700">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.49.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.805c.85 0 1.7.114 2.503.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.378.203 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.85 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
+                            </a>
+                        </div>
+                        <p class="text-zinc-400 mb-8 flex-grow leading-relaxed font-light">
+                            A command-line Blackjack game in Python. Players face a virtual dealer, manage bets, and choose to hit or stand. Features betting, difficulty modes, and simple CLI commands.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-auto">
+                            <span class="text-xs font-mono text-zinc-300 bg-zinc-800/60 px-3 py-1.5 rounded-md border border-zinc-700">Python</span>
+                            <span class="text-xs font-mono text-zinc-300 bg-zinc-800/60 px-3 py-1.5 rounded-md border border-zinc-700">CLI</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <!-- Contact Placeholder -->
-        <contact-component></contact-component>
+        <!-- Contact Section (Triggers 80s Modal) -->
+        <section id="contact" class="bento-card p-12 md:p-24 text-center flex flex-col items-center reveal-up scroll-mt-32 relative overflow-hidden">
+            <!-- Decorative Accent -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-[80px] pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-accent/5 rounded-full blur-[80px] pointer-events-none"></div>
+
+            <h2 class="text-4xl md:text-6xl font-bold tracking-tight text-white mb-6 relative z-10">Let's Connect.</h2>
+            <p class="text-lg md:text-xl text-zinc-400 max-w-2xl mb-12 leading-relaxed font-light relative z-10">
+                I am currently open to new opportunities to leverage my blended skills in data engineering and software development. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+            </p>
+            <button onclick="document.getElementById('retroModal').classList.add('active')" class="px-10 py-5 rounded-full bg-white text-background font-bold text-lg md:text-xl hover:scale-105 transition-transform duration-300 shadow-[0_0_30px_rgba(255,255,255,0.15)] relative z-10">
+                Say Hello
+            </button>
+        </section>
+
     </main>
 
-    <!-- Footer Placeholder -->
-    <footer-component></footer-component>
+    <!-- Footer -->
+    <footer class="border-t border-zinc-800/50 bg-background py-8 px-6 md:px-12 mt-12">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-sm font-medium text-zinc-500">
+            <p>&copy; 2026 Folaranmi Adeyeri. All rights reserved.</p>
+            <div class="flex gap-6 mt-4 md:mt-0">
+                <a href="https://github.com/Follyboy" class="hover:text-white transition-colors">GitHub</a>
+                <a href="https://linkedin.com/in/folaranmi-adeyeri" class="hover:text-white transition-colors">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+         80s RETRO POP-UP MODAL (HIDDEN BY DEFAULT)
+         ========================================== -->
+    <div id="retroModal" class="modal-overlay">
+        <div class="retro-modal">
+            <span class="retro-close" onclick="document.getElementById('retroModal').classList.remove('active')">[ X ]</span>
+            <h3 class="text-2xl md:text-3xl font-retro mb-2 text-[#ff2a6d] drop-shadow-[0_0_8px_rgba(255,42,109,0.8)]">INITIALIZE_CONTACT.EXE</h3>
+            <p class="mb-8 text-[#05d9e8] text-sm md:text-base font-retro">> AWAITING USER INPUT_</p>
+
+            <!-- Replace the action URL with your actual form endpoint (e.g. Formspree, Netlify) -->
+            <form action="https://formspree.io/f/movwywdy" method="POST" class="relative z-10 flex flex-col gap-5">
+                <div>
+                    <label class="block text-sm tracking-widest text-[#05d9e8] mb-1">> ID_NAME:</label>
+                    <input type="text" name="name" required class="retro-input" placeholder="Enter Name">
+                </div>
+                <div>
+                    <label class="block text-sm tracking-widest text-[#05d9e8] mb-1">> COMM_LINK (EMAIL):</label>
+                    <input type="email" name="email" required class="retro-input" placeholder="Enter Email">
+                </div>
+                <div>
+                    <label class="block text-sm tracking-widest text-[#05d9e8] mb-1">> TRANSMISSION_DATA:</label>
+                    <textarea name="message" required rows="4" class="retro-input resize-none" placeholder="Enter Message"></textarea>
+                </div>
+                <div class="mt-4 flex justify-end">
+                    <button type="submit" class="retro-btn">EXECUTE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Register ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Initialize Lenis (Smooth Scrolling)
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                direction: 'vertical',
+                gestureDirection: 'vertical',
+                smooth: true,
+                mouseMultiplier: 1,
+                smoothTouch: false,
+                touchMultiplier: 2,
+                infinite: false,
+            });
+
+            // Sync Lenis with GSAP ScrollTrigger
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => { lenis.raf(time * 1000) });
+            gsap.ticker.lagSmoothing(0);
+
+            // Simple Fade-up Animation for elements class .reveal-up
+            gsap.utils.toArray('.reveal-up').forEach((elem) => {
+                gsap.fromTo(elem,
+                    { y: 40, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: elem,
+                            start: "top 85%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+            });
+
+            // --- Mobile Menu Toggle Logic ---
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            let isMenuOpen = false;
+
+            function toggleMenu() {
+                isMenuOpen = !isMenuOpen;
+                if (isMenuOpen) {
+                    mobileMenuBtn.classList.add('menu-open');
+                    mobileMenuOverlay.classList.add('active');
+                    lenis.stop(); // Stop scrolling while menu is open
+                } else {
+                    mobileMenuBtn.classList.remove('menu-open');
+                    mobileMenuOverlay.classList.remove('active');
+                    lenis.start(); // Resume scrolling
+                }
+            }
+
+            mobileMenuBtn.addEventListener('click', toggleMenu);
+
+            // Close menu when a link is clicked
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (isMenuOpen) toggleMenu();
+                });
+            });
+
+            // Close 80s contact modal when clicking outside of the box
+            window.onclick = function(event) {
+                const modal = document.getElementById('retroModal');
+                if (event.target == modal) {
+                    modal.classList.remove('active');
+                }
+            }
+        });
+    </script>
 </body>
 </html>
