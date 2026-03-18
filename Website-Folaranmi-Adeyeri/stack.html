@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Stack - Folaranmi Adeyeri</title>
+    <link rel="icon" href="img/fa_logo.png" type="image/png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- GSAP for the "Exploding Spread" animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Lenis for buttery smooth scrolling -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.32/dist/lenis.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        background: '#050505',
+                        cardBorder: '#27272a',
+                        accent: '#22d3ee', /* Cyan accent */
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #fafafa;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+
+        .glass-nav {
+            background: rgba(5, 5, 5, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* --- THE EXPLODING SPREAD STYLES --- */
+
+        .explosion-wrapper {
+            /* Extremely tall to allow a long, smooth scrub animation */
+            height: 400vh;
+            position: relative;
+            width: 100%;
+        }
+
+        @media (max-width: 767px) {
+            .explosion-wrapper { height: 500vh; }
+        }
+
+        .explosion-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 25vh; /* Places the origin near the top of the screen */
+            background: #050505;
+        }
+
+        /* The mathematical center point where all cards originate */
+        .explosion-center {
+            position: relative;
+            width: 0;
+            height: 0;
+            z-index: 10;
+        }
+
+        /* GSAP animates this outer wrapper to coordinates */
+        .zoox-item {
+            position: absolute;
+            left: 0;
+            top: 0;
+            /* Translate ensures 0,0 is the true center of the card */
+            transform: translate(-50%, -50%);
+            will-change: transform, opacity, width, height;
+        }
+
+        /* The inner card handles the hover aesthetics */
+        .zoox-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #111;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease, box-shadow 0.4s ease;
+            filter: grayscale(60%) brightness(0.7);
+        }
+
+        /* Make the starting Hero image bright */
+        .zoox-item.is-hero .zoox-inner {
+            filter: grayscale(0%) brightness(1);
+            box-shadow: 0 0 60px rgba(34, 211, 238, 0.15);
+        }
+
+        /* Interactive Hover */
+        .zoox-item:hover {
+            z-index: 100 !important; /* Bring to front immediately */
+        }
+
+        .zoox-item:hover .zoox-inner {
+            transform: scale(1.05);
+            filter: grayscale(0%) brightness(1.1);
+            box-shadow: 0 30px 60px -10px rgba(34, 211, 238, 0.15);
+            border-color: rgba(34, 211, 238, 0.4);
+        }
+
+        .zoox-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Dark gradient overlay for text */
+        .zoox-inner::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.4) 40%, transparent 100%);
+            pointer-events: none;
+            z-index: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .zoox-item:hover .zoox-inner::after {
+            opacity: 0.8;
+        }
+
+        .zoox-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .hero-text-container {
+            position: absolute;
+            top: 15%; /* Moved up slightly to balance with the central image */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 100; /* Brought to the front (above the images) */
+            width: 100%;
+            padding: 0 1rem;
+            pointer-events: none; /* Ensures you can still hover/click images underneath */
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-accent selection:text-black">
+
+    <nav class="fixed top-0 w-full z-50 glass-nav px-6 py-4 md:px-12 flex justify-between items-center transition-all duration-300">
+        <a href="index.html" class="font-bold text-xl tracking-tight text-white flex items-center gap-2 group">
+            <svg class="w-5 h-5 text-zinc-400 group-hover:text-white transition-colors transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            FA<span class="text-accent">.</span>
+        </a>
+        <div class="font-mono text-sm text-zinc-400 tracking-widest uppercase">
+            Engineering Spread
+        </div>
+    </nav>
+
+    <main>
+
+        <!-- NEW INTRODUCTORY SECTION -->
+        <section class="min-h-[85vh] flex flex-col justify-center items-start px-6 md:px-12 max-w-[1800px] mx-auto pt-32 pb-20 relative z-10">
+            <div class="max-w-4xl reveal-up">
+                <div class="font-mono text-accent tracking-widest mb-6 uppercase text-sm border border-accent/30 bg-accent/10 px-3 py-1 rounded-full w-max">
+                    > System.Architecture
+                </div>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-8 leading-tight">
+                    Architecting <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-500">Intelligence.</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-zinc-400 leading-relaxed font-light mb-10">
+                    With a Master's in Data Science and hands-on engineering experience spanning from the <strong class="text-zinc-200 font-medium">World Bank Group</strong> to <strong class="text-zinc-200 font-medium">Midwestern Interactive</strong>, I build systems that bridge the gap between complex analytical models and scalable, production-grade software architecture.
+                </p>
+                <div class="flex items-center gap-4 text-sm font-mono text-zinc-500 uppercase tracking-widest">
+                    <span class="w-12 h-[1px] bg-zinc-600"></span>
+                    Scroll to deploy the arsenal
+                </div>
+            </div>
+        </section>
+
+        <!-- The Massive scroll wrapper for the Explosion -->
+        <section class="explosion-wrapper">
+
+            <div class="explosion-sticky">
+
+                <div class="hero-text-container">
+                    <div class="font-mono text-accent tracking-widest mb-4 uppercase text-sm">> System Loaded</div>
+                    <h2 class="text-5xl md:text-8xl font-bold tracking-tight text-white mb-6">The Stack.</h2>
+                </div>
+
+                <!--
+                    THE ORIGIN POINT.
+                    All items start hidden behind the "is-hero" item.
+                    data-x: Desktop X coord (in vw) for the 4-column layout
+                    data-y: Desktop Y coord (in vh) flowing downwards
+                    data-r: Slight rotation to give it a "scattered collage" vibe
+                    data-mx, data-my: Mobile 2-column coordinates
+                -->
+                <div class="explosion-center">
+
+                    <!-- Row 1: Spans Col 2 & 3 -->
+                    <div class="zoox-item is-hero" style="z-index: 50;" data-w="45vw" data-h="30vh" data-x="0" data-y="0" data-r="0" data-mw="90vw" data-mh="30vh" data-mx="0" data-my="0">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200" alt="Team Collaboration">
+                            <div class="zoox-content">
+                                <p class="font-mono text-accent text-[10px] md:text-xs uppercase tracking-widest mb-1">> Core Language</p>
+                                <h3 class="text-3xl md:text-4xl font-bold text-white">Python</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 1: Col 1 -->
+                    <div class="zoox-item" style="z-index: 49;" data-x="-34.5" data-y="2" data-r="-4" data-mx="-24" data-my="32" data-mr="-3">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=800" alt="Database">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> Database</p>
+                                <h3 class="text-xl font-bold text-white">SQL</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 1: Col 4 -->
+                    <div class="zoox-item" style="z-index: 48;" data-x="34.5" data-y="-2" data-r="3" data-mx="24" data-my="30" data-mr="4">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=800" alt="React JS">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> Frontend</p>
+                                <h3 class="text-xl font-bold text-white">ReactJS</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Col 1 -->
+                    <div class="zoox-item" style="z-index: 47;" data-x="-34.5" data-y="34" data-r="-2" data-mx="-24" data-my="62" data-mr="-2">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800" alt="Cloud">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> Infra</p>
+                                <h3 class="text-lg font-bold text-white">AWS</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Col 2 -->
+                    <div class="zoox-item" style="z-index: 46;" data-x="-11.5" data-y="32" data-r="4" data-mx="24" data-my="60" data-mr="2">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1605745341112-85968b19335b?auto=format&fit=crop&q=80&w=800" alt="Docker">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> DevOps</p>
+                                <h3 class="text-lg font-bold text-white">Docker</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Col 3 -->
+                    <div class="zoox-item" style="z-index: 45;" data-x="11.5" data-y="36" data-r="-3" data-mx="-24" data-my="92" data-mr="3">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=1200" alt="Neural Network">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> ML</p>
+                                <h3 class="text-xl font-bold text-white">PyTorch</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Col 4 -->
+                    <div class="zoox-item" style="z-index: 44;" data-x="34.5" data-y="33" data-r="2" data-mx="24" data-my="90" data-mr="-4">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&q=80&w=800" alt="Data Charts">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> Analysis</p>
+                                <h3 class="text-xl font-bold text-white">Pandas</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Col 1 -->
+                    <div class="zoox-item" style="z-index: 43;" data-x="-34.5" data-y="65" data-r="-5" data-mx="-24" data-my="122" data-mr="-2">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800" alt="Analytics Dashboards">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> Viz</p>
+                                <h3 class="text-lg font-bold text-white">Tableau</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Col 2 -->
+                    <div class="zoox-item" style="z-index: 42;" data-x="-11.5" data-y="63" data-r="2" data-mx="24" data-my="120" data-mr="3">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=800" alt="JavaScript Code">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> Logic</p>
+                                <h3 class="text-lg font-bold text-white">JavaScript</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Col 3 -->
+                    <div class="zoox-item" style="z-index: 41;" data-x="11.5" data-y="67" data-r="-3" data-mx="-24" data-my="152" data-mr="1">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1000" alt="Node Server">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> Backend</p>
+                                <h3 class="text-xl font-bold text-white">Node.js</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Col 4 -->
+                    <div class="zoox-item" style="z-index: 40;" data-x="34.5" data-y="64" data-r="4" data-mx="24" data-my="150" data-mr="-3">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800" alt="Web Dev">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> Framework</p>
+                                <h3 class="text-xl font-bold text-white">Angular</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 4: Col 1 -->
+                    <div class="zoox-item" style="z-index: 39;" data-x="-34.5" data-y="96" data-r="3" data-mx="-24" data-my="182" data-mr="2">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1587620962725-abab7fe55159?auto=format&fit=crop&q=80&w=800" alt="PHP Code">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> Scripts</p>
+                                <h3 class="text-lg font-bold text-white">PHP</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 4: Col 2 -->
+                    <div class="zoox-item" style="z-index: 38;" data-x="-11.5" data-y="94" data-r="-4" data-mx="24" data-my="180" data-mr="-1">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1526498460520-4c246339dccb?auto=format&fit=crop&q=80&w=800" alt="Mobile App">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> Mobile</p>
+                                <h3 class="text-lg font-bold text-white">Flutter</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 4: Col 3 -->
+                    <div class="zoox-item" style="z-index: 37;" data-x="11.5" data-y="98" data-r="2" data-mx="-24" data-my="212" data-mr="4">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1550439062-609e1531270e?auto=format&fit=crop&q=80&w=800" alt="UI Design">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> Web</p>
+                                <h3 class="text-lg font-bold text-white">HTML/CSS</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 4: Col 4 -->
+                    <div class="zoox-item" style="z-index: 36;" data-x="34.5" data-y="95" data-r="-3" data-mx="24" data-my="210" data-mr="-2">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1556075798-4825dfaaf498?auto=format&fit=crop&q=80&w=800" alt="Git Graph">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> VCS</p>
+                                <h3 class="text-lg font-bold text-white">GitHub</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 5: Col 1 -->
+                    <div class="zoox-item" style="z-index: 35;" data-x="-34.5" data-y="127" data-r="-2" data-mx="-24" data-my="242" data-mr="1">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=800" alt="Terminal">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> OS</p>
+                                <h3 class="text-lg font-bold text-white">Unix & Bash</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 5: Col 2 -->
+                    <div class="zoox-item" style="z-index: 34;" data-x="-11.5" data-y="125" data-r="3" data-mx="24" data-my="240" data-mr="-3">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800" alt="Architecture Planning">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> Comm</p>
+                                <h3 class="text-xl font-bold text-white">REST APIs</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 5: Col 3 -->
+                    <div class="zoox-item" style="z-index: 33;" data-x="11.5" data-y="129" data-r="-4" data-mx="-24" data-my="272" data-mr="2">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=80&w=800" alt="Google Cloud">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> Cloud</p>
+                                <h3 class="text-lg font-bold text-white">GCP</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 5: Col 4 -->
+                    <div class="zoox-item" style="z-index: 32;" data-x="34.5" data-y="126" data-r="2" data-mx="24" data-my="270" data-mr="-2">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000&sat=-100" alt="Time Series">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> Analysis</p>
+                                <h3 class="text-xl font-bold text-white">Time Series</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 6: Col 1 -->
+                    <div class="zoox-item" style="z-index: 31;" data-x="-34.5" data-y="158" data-r="4" data-mx="-24" data-my="302" data-mr="3">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=1200" alt="Data Modeling">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> Forecasting</p>
+                                <h3 class="text-xl font-bold text-white">Pred. Modeling</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 6: Col 2 -->
+                    <div class="zoox-item" style="z-index: 30;" data-x="-11.5" data-y="156" data-r="-2" data-mx="24" data-my="300" data-mr="-4">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&q=80&w=800" alt="A/B Split">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> Test</p>
+                                <h3 class="text-lg font-bold text-white">A/B Testing</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 6: Col 3 -->
+                    <div class="zoox-item" style="z-index: 29;" data-x="11.5" data-y="160" data-r="3" data-mx="-24" data-my="332" data-mr="1">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" alt="Statistics">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> Analytics</p>
+                                <h3 class="text-lg font-bold text-white">Stat Analysis</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 6: Col 4 -->
+                    <div class="zoox-item" style="z-index: 28;" data-x="34.5" data-y="157" data-r="-3" data-mx="24" data-my="330" data-mr="3">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800" alt="Data Flow">
+                            <div class="zoox-content">
+                                <p class="font-mono text-zinc-400 text-[10px] uppercase tracking-widest mb-1">> Pipeline</p>
+                                <h3 class="text-lg font-bold text-white">ETL</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 7: Center Footer Hero -->
+                    <div class="zoox-item" style="z-index: 27;" data-w="45vw" data-h="30vh" data-x="0" data-y="190" data-r="0" data-mw="90vw" data-mh="30vh" data-mx="0" data-my="360" data-mr="0">
+                        <div class="zoox-inner">
+                            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800" alt="Problem Solving">
+                            <div class="zoox-content">
+                                <p class="font-mono text-accent text-xs uppercase tracking-widest mb-1">> Methodology</p>
+                                <h3 class="text-3xl md:text-4xl font-bold text-white">Problem Solving</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-zinc-800/50 bg-background py-10 px-6 md:px-12 relative z-50">
+        <div class="max-w-[1800px] mx-auto flex flex-col md:flex-row justify-between items-center text-sm font-medium text-zinc-500">
+            <p>&copy; 2026 Folaranmi Adeyeri. All rights reserved.</p>
+            <div class="flex gap-6 mt-4 md:mt-0">
+                <a href="index.html" class="hover:text-white transition-colors">Return to Portfolio</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            // 1. Initialize Lenis Smooth Scrolling
+            const lenis = new Lenis({
+                duration: 1.5,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                direction: 'vertical',
+                smooth: true,
+            });
+
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => { lenis.raf(time * 1000) });
+            gsap.ticker.lagSmoothing(0);
+            gsap.registerPlugin(ScrollTrigger);
+
+            const isMobile = window.innerWidth < 768;
+            const items = gsap.utils.toArray('.zoox-item');
+
+            // 2. Initial Intro Section Reveal Animation
+            gsap.utils.toArray('.reveal-up').forEach((elem) => {
+                gsap.fromTo(elem,
+                    { y: 40, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1.2,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: elem,
+                            start: "top 85%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+            });
+
+            // 3. Initial Setup for the Explosion Grid
+            // ALL items start tiny, transparent, and hidden at the exact center (0,0)
+            items.forEach((item) => {
+                // Determine width and height (Desktop vs Mobile)
+                const defaultW = isMobile ? '42vw' : '21vw';
+                const defaultH = isMobile ? '25vh' : '28vh';
+                const targetW = item.getAttribute(isMobile ? 'data-mw' : 'data-w') || defaultW;
+                const targetH = item.getAttribute(isMobile ? 'data-mh' : 'data-h') || defaultH;
+
+                gsap.set(item, {
+                    x: "0vw",
+                    y: "0vh",
+                    width: targetW,
+                    height: targetH,
+                    scale: item.classList.contains('is-hero') ? 1 : 0.2, // Only Hero is full size initially
+                    opacity: item.classList.contains('is-hero') ? 1 : 0, // Only Hero is visible initially
+                    rotation: 0
+                });
+            });
+
+            // 4. The Grand Timeline for the Explosion
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".explosion-wrapper",
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 1.5,
+                }
+            });
+
+            // Smoothly fade out and move up the "The Stack" text as you scroll
+            tl.to('.hero-text-container', {
+                opacity: 0,
+                y: "-150px",
+                duration: 0.3
+            }, 0);
+
+            // 5. THE EXPLOSION
+            items.forEach((item) => {
+                if (item.classList.contains('is-hero')) {
+                    // The Hero card shrinks slightly to fit into the grid
+                    tl.to(item, {
+                        scale: 0.9,
+                        ease: "power2.inOut",
+                        duration: 1
+                    }, 0);
+                } else {
+                    // Extract coordinates (Desktop vs Mobile)
+                    const targetX = item.getAttribute(isMobile ? 'data-mx' : 'data-x');
+                    const targetY = item.getAttribute(isMobile ? 'data-my' : 'data-y');
+                    const targetR = item.getAttribute(isMobile ? 'data-mr' : 'data-r') || 0;
+
+                    // Instantly make the hidden cards visible behind the hero
+                    tl.to(item, { opacity: 1, duration: 0.01 }, 0);
+
+                    // Animate them outwards to their exact X, Y grid coordinates
+                    tl.to(item, {
+                        x: targetX + "vw",
+                        y: targetY + "vh",
+                        rotation: targetR + "deg",
+                        scale: 1,
+                        ease: "power3.out", // Explode fast, settle slowly
+                        duration: 1
+                    }, 0);
+                }
+            });
+
+            // 6. CAMERA PAN
+            // As the cards fly down and outwards, we pan the container UP so the user
+            // can scroll through the entire resulting 4-column (or 2-col on mobile) grid.
+            const panAmount = isMobile ? "-350vh" : "-190vh";
+            tl.to('.explosion-center', {
+                y: panAmount,
+                ease: "none",
+                duration: 1
+            }, 0.1); // Delay the pan slightly so the explosion happens first
+
+        });
+    </script>
+</body>
+</html>
